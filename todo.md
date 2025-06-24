@@ -36,8 +36,8 @@ code mere\
 
     moteurRecherche.php
         **** seul 20 lignes en result ****
-        lien suivant / precedent 
-        1 element de l sql soit 
+        lien suivant / precedent pour le 20 prochain
+        1 element de l sql en entrer de recherche soit 
             departement || nom emplye || age max / min
         
 
