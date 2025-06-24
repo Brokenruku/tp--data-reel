@@ -31,6 +31,11 @@ code mere\
     index.php
         redirection ver departments.php
     employeesFiche.php
-        fichier -- info de base de l employer 
-            
+        fiche -- info de base de l employer 
+        list historique salaire + emploi dans la fiche
+
+    moteurRecherche.php
+        1 element de l sql soit 
+            departement || nom emplye || age max / min
+
 
