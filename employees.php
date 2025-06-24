@@ -41,6 +41,7 @@
                     <td><?= htmlspecialchars($employee['last_name']) ?></td>
                     <td><?= htmlspecialchars($employee['gender']) ?></td>
                     <td><?= htmlspecialchars($employee['hire_date']) ?></td>
+                    <td><a href="employeesFiche.php" class="btn btn-secondary"> voir la fiche </a></td>
                 </tr>
                 <?php endwhile; ?>
             </tbody>

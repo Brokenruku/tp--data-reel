@@ -35,7 +35,10 @@ code mere\
         list historique salaire + emploi dans la fiche
 
     moteurRecherche.php
+        **** seul 20 lignes en result ****
+        lien suivant / precedent 
         1 element de l sql soit 
             departement || nom emplye || age max / min
+        
 
 
