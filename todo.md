@@ -8,7 +8,7 @@ preparation fichier
     ajouter les sous dossier 
         assets pour bootstrap 
         includes pour fonction et les raccourci de code comme footer etc 
-        mettre bootstreap et placer dans assetes/css/ et assets/js/
+        mettre bootstreap et placer dans assets/css/ et assets/js/
 
 includes\
     config.php
