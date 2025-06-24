@@ -17,36 +17,13 @@
 ?>
 
 <section aria-labelledby="team-heading">
-    <h2 id="team-heading" class="h3 mb-4">
-        Équipe du département : 
-        <span class="text-primary"><?= htmlspecialchars($dept_name) ?></span>
-    </h2>
-    
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Prénom</th>
-                    <th>Nom</th>
-                    <th>Genre</th>
-                    <th>Date embauche</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($employee = mysqli_fetch_assoc($employees_result)): ?>
-                <tr>
-                    <td><?= htmlspecialchars($employee['emp_no']) ?></td>
-                    <td><?= htmlspecialchars($employee['first_name']) ?></td>
-                    <td><?= htmlspecialchars($employee['last_name']) ?></td>
-                    <td><?= htmlspecialchars($employee['gender']) ?></td>
-                    <td><?= htmlspecialchars($employee['hire_date']) ?></td>
-                    <td><a href="employeesFiche.php" class="btn btn-secondary"> voir la fiche </a></td>
-                </tr>
-                <?php endwhile; ?>
-            </tbody>
-        </table>
-    </div>
+    <a href="moteurRecherche.php" class="btn btn-secondary">
+            Rechercher
+        </a>
+
+    <?php
+    include 'includes/employees_table.php';
+    ?>
     
     <nav aria-label="Navigation secondaire">
         <a href="departments.php" class="btn btn-secondary">
