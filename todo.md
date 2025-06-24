@@ -26,6 +26,11 @@ code mere\
         recuperer les numero des departement 
         charge list des employe du departement actuel
         affiche info 
+        lien ver employeesFiche.php pour afficher la fichier de l e 
+         selectionner fiche
     index.php
         redirection ver departments.php
+    employeesFiche.php
+        fichier -- info de base de l employer 
+            
 
