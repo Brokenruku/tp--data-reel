@@ -30,6 +30,8 @@ code mere\
          selectionner fiche
     index.php
         redirection ver departments.php
+    employee_table.php 
+        pour affichier les employees
     employeesFiche.php
         fiche -- info de base de l employer 
         list historique salaire + emploi dans la fiche
