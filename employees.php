@@ -17,6 +17,8 @@
                     FROM employees e
                     INNER JOIN dept_emp de ON e.emp_no = de.emp_no
                     WHERE de.dept_no = '$dept_no' AND de.to_date > CURDATE()";
+
+    $employees_result = mysqli_query($mysqli, $employees_query);
 ?>
 
 <section aria-labelledby="team-heading">

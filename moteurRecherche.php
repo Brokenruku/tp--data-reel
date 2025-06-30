@@ -20,20 +20,17 @@ if ($age_max) $where[] = "TIMESTAMPDIFF(YEAR, e.birth_date, CURDATE()) <= $age_m
 
 $where_sql = "WHERE " . implode(" AND ", $where);
 
-// Total count
 $total = mysqli_fetch_assoc(mysqli_query($mysqli,
     "SELECT COUNT(*) AS total FROM employees e 
      JOIN dept_emp de ON e.emp_no = de.emp_no $where_sql"))['total'];
 $pages = ceil($total / $limit);
 
-// Employee data
 $employees = mysqli_query($mysqli,
     "SELECT e.emp_no, e.first_name, e.last_name, e.gender, e.hire_date 
      FROM employees e 
      JOIN dept_emp de ON e.emp_no = de.emp_no 
      $where_sql ORDER BY e.last_name LIMIT $limit OFFSET $offset");
 
-// Departement
 $depts = mysqli_query($mysqli, "SELECT dept_no, dept_name FROM departments ORDER BY dept_name");
 ?>
 
