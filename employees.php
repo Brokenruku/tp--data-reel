@@ -3,7 +3,11 @@
     require_once 'includes/config.php';
     require_once 'includes/header.php';
 
-    $dept_no = isset($_GET['dept']) ? mysqli_real_escape_string($mysqli, $_GET['dept']) : '';
+    if (isset($_GET['dept'])) {
+        $dept_no = mysqli_real_escape_string($mysqli, $_GET['dept']);
+    } else {
+        $dept_no = '';
+    }
 
     $dept_query = "SELECT dept_name FROM departments WHERE dept_no = '$dept_no'";
     $dept_result = mysqli_query($mysqli, $dept_query);
@@ -13,7 +17,6 @@
                     FROM employees e
                     INNER JOIN dept_emp de ON e.emp_no = de.emp_no
                     WHERE de.dept_no = '$dept_no' AND de.to_date > CURDATE()";
-    $employees_result = mysqli_query($mysqli, $employees_query);
 ?>
 
 <section aria-labelledby="team-heading">
@@ -27,13 +30,13 @@
     
     <nav aria-label="Navigation secondaire">
         <a href="departments.php" class="btn btn-secondary">
-            ← Retour aux départements
+            Retour départements
         </a>
     </nav>
 </section>
 
 <?php
-mysqli_free_result($dept_result);
-mysqli_free_result($employees_result);
-include 'includes/footer.php';
+    mysqli_free_result($dept_result);
+    mysqli_free_result($employees_result);
+    include 'includes/footer.php';
 ?>
