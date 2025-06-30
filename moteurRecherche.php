@@ -34,43 +34,89 @@ $employees = mysqli_query($mysqli,
 $depts = mysqli_query($mysqli, "SELECT dept_no, dept_name FROM departments ORDER BY dept_name");
 ?>
 
-<h2>Moteur de recherche employés</h2>
-<form method="GET">
-    <select name="dept">
-        <option value="">Tous</option>
-        <?php while ($d = mysqli_fetch_assoc($depts)): ?>
-            <option value="<?= $d['dept_no'] ?>" <?= $dept === $d['dept_no'] ? 'selected' : '' ?>>
-                <?= htmlspecialchars($d['dept_name']) ?>
-            </option>
-        <?php endwhile; ?>
-    </select>
-    <input type="text" name="name" placeholder="Nom" value="<?= htmlspecialchars($name) ?>">
-    <input type="number" name="age_min" placeholder="Âge min" value="<?= $age_min ?>">
-    <input type="number" name="age_max" placeholder="Âge max" value="<?= $age_max ?>">
-    <button type="submit">Rechercher</button>
-    <a href="moteurRecherche.php">Reset</a>
-</form>
+<div class="card shadow mb-4">
+    <div class="card-header bg-gradient-success text-white">
+        <h2 class="card-title mb-0">
+            <i class="fas fa-search me-2"></i>Moteur de recherche employés
+        </h2>
+    </div>
+    <div class="card-body">
+        <form method="GET" class="row g-3">
+            <div class="col-3">
+                <label class="form-label fw-bold">Département</label>
+                <select name="dept" class="form-select">
+                    <option value="">Tous les départements</option>
+                    <?php while ($d = mysqli_fetch_assoc($depts)): ?>
+                        <option value="<?= $d['dept_no'] ?>" <?= $dept === $d['dept_no'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($d['dept_name']) ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
+            </div>
+            <div class="col-3">
+                <label class="form-label fw-bold">Nom</label>
+                <input type="text" name="name" class="form-control" placeholder="Rechercher par nom" value="<?= htmlspecialchars($name) ?>">
+            </div>
+            <div class="col-2">
+                <label class="form-label fw-bold">Âge minimum</label>
+                <input type="number" name="age_min" class="form-control" placeholder="Min" value="<?= $age_min ?>">
+            </div>
+            <div class="col-2">
+                <label class="form-label fw-bold">Âge maximum</label>
+                <input type="number" name="age_max" class="form-control" placeholder="Max" value="<?= $age_max ?>">
+            </div>
+            <div class="col-2 d-flex align-items-end gap-2">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-search me-1"></i>Rechercher
+                </button>
+                <a href="moteurRecherche.php" class="btn btn-outline-secondary">
+                    <i class="fas fa-redo me-1"></i>Reset
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
 
-<p><strong><?= $total ?></strong> résultat(s) – Page <?= $page ?>/<?= $pages ?></p>
+<div class="alert alert-info d-flex align-items-center">
+    <i class="fas fa-info-circle me-2"></i>
+    <strong><?= $total ?></strong> résultat(s) trouvé(s) – Page <?= $page ?>/<?= $pages ?>
+</div>
 
-<?php include 'includes/employees_table.php'; ?>
+<div class="card shadow">
+    <div class="card-body p-0">
+        <?php include 'includes/employees_table.php'; ?>
+    </div>
+</div>
 
 <?php if ($pages > 1): ?>
-<nav>
+<nav class="mt-4">
+    <div class="d-flex justify-content-between align-items-center">
+        <?php if ($page > 1): ?>
+            <a href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-left me-1"></i>Précédent
+            </a>
+        <?php else: ?>
+            <span></span>
+        <?php endif; ?>
 
+        <span class="badge bg-primary fs-6">Page <?= $page ?> / <?= $pages ?></span>
 
-    <?php if ($page > 1): ?>
-        <a href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>">← Précédent</a>
-    <?php endif; ?>
-
-    <?php if ($page < $pages): ?>
-        <a href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>">Suivant →</a>
-    <?php endif; ?>
-    
+        <?php if ($page < $pages): ?>
+            <a href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>" class="btn btn-outline-primary">
+                Suivant<i class="fas fa-arrow-right ms-1"></i>
+            </a>
+        <?php else: ?>
+            <span></span>
+        <?php endif; ?>
+    </div>
 </nav>
 <?php endif; ?>
 
-<a href="departments.php">← Retour</a>
+<div class="mt-4">
+    <a href="departments.php" class="btn btn-secondary rounded-pill">
+        <i class="fas fa-arrow-left me-1"></i>Retour aux départements
+    </a>
+</div>
 
 <?php
 mysqli_free_result($employees);

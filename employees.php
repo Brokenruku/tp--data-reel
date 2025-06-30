@@ -17,24 +17,31 @@ $employees = mysqli_query($mysqli,
 $ancien_dept = $dept_no;
 ?>
 
-<section aria-labelledby="team-heading">
-    <h2 id="team-heading" class="h3 mb-4">
-        Équipe du département : 
-        <span class="text-primary"><?= htmlspecialchars($dept_name) ?></span>
-    </h2>
-    
-    <a href="moteurRecherche.php" class="btn btn-secondary mb-3">
-        Rechercher
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="text-primary mb-1">
+            <i class="fas fa-users me-2"></i>Équipe du département
+        </h2>
+        <h3 class="h4 text-muted">
+            <i class="fas fa-building me-1"></i><?= htmlspecialchars($dept_name) ?>
+        </h3>
+    </div>
+    <a href="moteurRecherche.php" class="btn btn-outline-success rounded-pill">
+        <i class="fas fa-search me-1"></i>Rechercher
     </a>
+</div>
 
-    <?php include 'includes/employees_table.php'; ?>
-    
-    <nav aria-label="Navigation secondaire" class="mt-3">
-        <a href="departments.php" class="btn btn-secondary">
-            Retour aux départements
-        </a>
-    </nav>
-</section>
+<div class="card shadow-lg">
+    <div class="card-body p-0">
+        <?php include 'includes/employees_table.php'; ?>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="departments.php" class="btn btn-secondary rounded-pill">
+        <i class="fas fa-arrow-left me-1"></i>Retour aux départements
+    </a>
+</div>
 
 <?php
 mysqli_free_result($employees);

@@ -21,67 +21,91 @@ $anci_dept = mysqli_fetch_assoc(mysqli_query($mysqli,
      WHERE de.emp_no = $emp_no AND de.to_date > CURDATE()"));
 ?>
 
-<section class="employee-detail">
-    <div class="row mb-4">
-        <div class="col-md-6">
-            <h2><?= htmlspecialchars($employee['first_name'].' '.$employee['last_name']) ?></h2>
-            <p><strong>ID:</strong> <?= $employee['emp_no'] ?></p>
-            <p><strong>Département:</strong> <?= $anci_dept['dept_name'] ?? 'N/A' ?></p>
-        </div>
-        <div class="col-md-6">
-            <p><strong>Genre:</strong> <?= $employee['gender'] ?></p>
-            <p><strong>Naissance:</strong> <?= $employee['birth_date'] ?></p>
-            <p><strong>Embauche:</strong> <?= $employee['hire_date'] ?></p>
+<div class="card shadow-lg mb-4">
+    <div class="card-header bg-gradient-primary text-white">
+        <h2 class="card-title mb-0">
+            <i class="fas fa-user-circle me-2"></i><?= htmlspecialchars($employee['first_name'].' '.$employee['last_name']) ?>
+        </h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <p><strong><i class="fas fa-id-badge me-2 text-primary"></i>ID:</strong> <span class="badge bg-secondary"><?= $employee['emp_no'] ?></span></p>
+                <p><strong><i class="fas fa-building me-2 text-primary"></i>Département:</strong> <?= $anci_dept['dept_name'] ?? 'N/A' ?></p>
+            </div>
+            <div class="col-6">
+                <p><strong><i class="fas fa-venus-mars me-2 text-primary"></i>Genre:</strong> <?= $employee['gender'] ?></p>
+                <p><strong><i class="fas fa-birthday-cake me-2 text-primary"></i>Naissance:</strong> <?= $employee['birth_date'] ?></p>
+                <p><strong><i class="fas fa-calendar-plus me-2 text-primary"></i>Embauche:</strong> <?= $employee['hire_date'] ?></p>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    Historique des salaires
-                </div>
-                <div class="card-body">
-                    <table class="table table-sm">
+<div class="row">
+    <div class="col-6">
+        <div class="card shadow h-100">
+            <div class="card-header bg-success text-white d-flex align-items-center">
+                <i class="fas fa-euro-sign me-2"></i>
+                <h5 class="mb-0">Historique des salaires</h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Période</th>
+                            <th class="text-end">Salaire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <?php while ($s = mysqli_fetch_assoc($salaries)){ ?>
                         <tr>
-                            <td><?= $s['from_date'] ?> à <?= $s['to_date'] ?></td>
-                            <td><?= number_format($s['salary'], 0, ',', ' ') ?> €</td>
+                            <td><small class="text-muted"><?= $s['from_date'] ?> à <?= $s['to_date'] ?></small></td>
+                            <td class="text-end fw-bold text-success"><?= number_format($s['salary'], 0, ',', ' ') ?> €</td>
                         </tr>
                         <?php } ?>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
+    </div>
 
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header bg-success text-white">
-                    Historique des postes
-                </div>
-                <div class="card-body">
-                    <table class="table table-sm">
+    <div class="col-6">
+        <div class="card shadow h-100">
+            <div class="card-header bg-info text-white d-flex align-items-center">
+                <i class="fas fa-briefcase me-2"></i>
+                <h5 class="mb-0">Historique des postes</h5>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Période</th>
+                            <th>Poste</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <?php while ($title = mysqli_fetch_assoc($titles)){ ?>
                         <tr>
-                            <td><?= $title['from_date'] ?> à <?= $title['to_date'] ?></td>
-                            <td><?= $title['title'] ?></td>
+                            <td><small class="text-muted"><?= $title['from_date'] ?> à <?= $title['to_date'] ?></small></td>
+                            <td><span class="badge bg-info"><?= $title['title'] ?></span></td>
                         </tr>
                         <?php } ?>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="mt-4">
-        <a href="employees.php?dept=<?= $dept_no ?>" class="btn btn-secondary">
-            Retour équipe
-        </a>
-        <a href="departments.php" class="btn btn-outline-secondary">
-            Tous les départements
-        </a>
-    </div>
-</section>
+<div class="mt-4 d-flex gap-2">
+    <a href="employees.php?dept=<?= $dept_no ?>" class="btn btn-primary rounded-pill">
+        <i class="fas fa-arrow-left me-1"></i>Retour équipe
+    </a>
+    <a href="departments.php" class="btn btn-outline-secondary rounded-pill">
+        <i class="fas fa-building me-1"></i>Tous les départements
+    </a>
+</div>
 
 <?php
 mysqli_free_result($salaries);

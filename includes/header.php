@@ -7,13 +7,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>gestion employes</title>
-    <link rel="stylesheet" href="../assets/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/custom.css">
 </head>
 <body>
-    <header class="bg-primary text-white p-3 mb-4">
+    <header class="bg-gradient-primary text-white p-4 mb-4 shadow">
         <div class="container">
-            <h1 class="h2">gestion des ressources humaines</h1>
+            <h1 class="h2 mb-0">
+                <i class="fas fa-users-cog me-2"></i>Gestion des ressources humaines
+            </h1>
         </div>
     </header>
-    <main class="container" >
+    <main class="container">
