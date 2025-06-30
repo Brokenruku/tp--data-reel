@@ -16,12 +16,12 @@
                 <td><?= $employee['emp_no'] ?></td>
                 <td>
                     <a href="employeesFiche.php?emp_no=<?= $employee['emp_no'] ?>&dept=<?= $ancien_dept ?? '' ?>">
-                        <?= htmlspecialchars($employee['first_name']) ?>
+                        <?= ($employee['first_name']) ?>
                     </a>
                 </td>
                 <td>
                     <a href="employeesFiche.php?emp_no=<?= $employee['emp_no'] ?>&dept=<?= $ancien_dept ?? '' ?>">
-                        <?= htmlspecialchars($employee['last_name']) ?>
+                        <?= ($employee['last_name']) ?>
                     </a>
                 </td>
                 <td><?= $employee['gender'] ?></td>
