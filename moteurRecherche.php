@@ -35,7 +35,7 @@ $depts = mysqli_query($mysqli, "SELECT dept_no, dept_name FROM departments ORDER
 ?>
 
 <div class="card shadow mb-4">
-    <div class="card-header bg-gradient-success text-white">
+    <div class="card-header bg-gradient-success text-black">
         <h2 class="card-title mb-0">
             <i class="fas fa-search me-2"></i>Moteur de recherche employés
         </h2>
@@ -75,11 +75,6 @@ $depts = mysqli_query($mysqli, "SELECT dept_no, dept_name FROM departments ORDER
             </div>
         </form>
     </div>
-</div>
-
-<div class="alert alert-info d-flex align-items-center">
-    <i class="fas fa-info-circle me-2"></i>
-    <strong><?= $total ?></strong> résultat(s) trouvé(s) – Page <?= $page ?>/<?= $pages ?>
 </div>
 
 <div class="card shadow">
