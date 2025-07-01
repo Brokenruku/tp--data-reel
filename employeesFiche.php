@@ -19,19 +19,35 @@ $anci_dept = mysqli_fetch_assoc(mysqli_query($mysqli,
     "SELECT d.dept_name FROM departments d
      JOIN dept_emp de ON d.dept_no = de.dept_no
      WHERE de.emp_no = $emp_no AND de.to_date > CURDATE()"));
+
+$longest_job = mysqli_fetch_assoc(mysqli_query($mysqli,
+    "SELECT title, 
+     DATEDIFF(CASE WHEN to_date = '9999-01-01' THEN CURDATE() ELSE to_date END, from_date) AS duree_jours,
+     from_date, to_date
+     FROM titles 
+     WHERE emp_no = $emp_no 
+     ORDER BY duree_jours DESC 
+     LIMIT 1"));
 ?>
 
 <div class="card shadow-lg mb-4">
-    <div class="card-header bg-gradient-primary text-white">
+    <div class="card-header bg-gradient-primary" style="color: purple;">
         <h2 class="card-title mb-0">
             <i class="fas fa-user-circle me-2"></i><?= htmlspecialchars($employee['first_name'].' '.$employee['last_name']) ?>
         </h2>
     </div>
+
     <div class="card-body">
         <div class="row">
             <div class="col-6">
                 <p><strong><i class="fas fa-id-badge me-2 text-primary"></i>ID:</strong> <span class="badge bg-secondary"><?= $employee['emp_no'] ?></span></p>
                 <p><strong><i class="fas fa-building me-2 text-primary"></i>Département:</strong> <?= $anci_dept['dept_name'] ?? 'N/A' ?></p>
+                <?php if ($longest_job): ?>
+                <p><strong><i class="fas fa-clock me-2 text-primary"></i>Emploi le plus long:</strong> 
+                   <span class="badge bg-warning text-dark"><?= htmlspecialchars($longest_job['title']) ?></span>
+                   <small class="text-muted">(<?= round($longest_job['duree_jours'] / 365, 1) ?> ans)</small>
+                </p>
+                <?php endif; ?>
             </div>
             <div class="col-6">
                 <p><strong><i class="fas fa-venus-mars me-2 text-primary"></i>Genre:</strong> <?= $employee['gender'] ?></p>
@@ -53,15 +69,15 @@ $anci_dept = mysqli_fetch_assoc(mysqli_query($mysqli,
                 <table class="table table-hover mb-0">
                     <thead class="table-light">
                         <tr>
-                            <th>Période</th>
-                            <th class="text-end">Salaire</th>
+                            <th class="text-white">Période</th>
+                            <th class="text-white text-end">Salaire</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php while ($s = mysqli_fetch_assoc($salaries)){ ?>
                         <tr>
                             <td><small class="text-muted"><?= $s['from_date'] ?> à <?= $s['to_date'] ?></small></td>
-                            <td class="text-end fw-bold text-success"><?= number_format($s['salary'], 0, ',', ' ') ?> €</td>
+                            <td class="fw-bold text-success text-end"><?= number_format($s['salary'], 0, ',', ' ') ?> €</td>
                         </tr>
                         <?php } ?>
                     </tbody>
@@ -80,8 +96,8 @@ $anci_dept = mysqli_fetch_assoc(mysqli_query($mysqli,
                 <table class="table table-hover mb-0">
                     <thead class="table-light">
                         <tr>
-                            <th>Période</th>
-                            <th>Poste</th>
+                            <th class="text-white">Période</th>
+                            <th class="text-white">Poste</th>
                         </tr>
                     </thead>
                     <tbody>
