@@ -14,9 +14,6 @@
             GROUP BY d.dept_no, d.dept_name, e.first_name, e.last_name";
 
     $result = mysqli_query($mysqli, $query);
-    if (!$result) {
-        die('Erreur requête: ' . mysqli_error($mysqli));
-    }
 ?>
 
 <div class="card shadow">

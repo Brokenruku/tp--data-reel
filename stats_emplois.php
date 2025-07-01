@@ -13,9 +13,6 @@ $query = "SELECT title,
           ORDER BY title";
 
 $result = mysqli_query($mysqli, $query);
-if (!$result) {
-    die('Erreur requête: ' . mysqli_error($mysqli));
-}
 ?>
 
 <div class="card shadow">
