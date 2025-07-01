@@ -3,17 +3,14 @@ define('APP_ROOT', true);
 require_once 'includes/config.php';
 require_once 'includes/header.php';
 
-$query = "SELECT t.title,
-          COUNT(CASE WHEN e.gender = 'M' THEN 1 END) AS nb_hommes,
-          COUNT(CASE WHEN e.gender = 'F' THEN 1 END) AS nb_femmes,
+$query = "SELECT title,
+          COUNT(CASE WHEN gender = 'M' THEN 1 END) AS nb_hommes,
+          COUNT(CASE WHEN gender = 'F' THEN 1 END) AS nb_femmes,
           COUNT(*) AS total_employes,
-          AVG(s.salary) AS salaire_moyen
-          FROM titles t
-          JOIN employees e ON t.emp_no = e.emp_no
-          JOIN salaries s ON e.emp_no = s.emp_no
-          WHERE t.to_date > CURDATE() AND s.to_date > CURDATE()
-          GROUP BY t.title
-          ORDER BY t.title";
+          AVG(salary) AS salaire_moyen
+          FROM current_employees
+          GROUP BY title
+          ORDER BY title";
 
 $result = mysqli_query($mysqli, $query);
 if (!$result) {
