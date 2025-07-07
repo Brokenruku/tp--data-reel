@@ -2,6 +2,7 @@
 define('APP_ROOT', true);
 require_once 'includes/config.php';
 require_once 'includes/header.php';
+require_once 'includes/fonction.php';
 
 $dept_no = isset($_GET['dept']) ? mysqli_real_escape_string($mysqli, $_GET['dept']) : '';
 
@@ -44,6 +45,5 @@ $ancien_dept = $dept_no;
 </div>
 
 <?php
-mysqli_free_result($employees);
 include 'includes/footer.php';
 ?>

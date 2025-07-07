@@ -42,7 +42,7 @@ $longest_job = mysqli_fetch_assoc(mysqli_query($mysqli,
             <div class="col-6">
                 <p><strong><i class="fas fa-id-badge me-2 text-primary"></i>ID:</strong> <span class="badge bg-secondary"><?= $employee['emp_no'] ?></span></p>
                 <p><strong><i class="fas fa-building me-2 text-primary"></i>Département:</strong> <?= $anci_dept['dept_name'] ?? 'N/A' ?>
-                        <a href="ChangeDept.php" class="btn btn-secondary rounded-pill">changer de département</a>
+                        <a href="ChangeDept.php?emp_no=<?= $emp_no ?>" class="btn btn-secondary rounded-pill">changer de département</a>
                 </p>
                 <?php if ($longest_job): ?>
                 <p><strong><i class="fas fa-clock me-2 text-primary"></i>Emploi le plus long:</strong> 
