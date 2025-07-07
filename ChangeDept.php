@@ -5,9 +5,14 @@
 
     $id_emp = $_GET['emp_no'];
 
-    changerDeDepartement($dept_no_Vaovao, $nouvelle_date , $id_emp, $mysqli);
 ?>
+    <from action="ChangeDeptMethode.php?id_emp=<?= $id_emp ?>" method="post">
+        <label for="nvDept">Votre nouveau departments</label>
+        <input type="text" id="nvDept" name="nvDept"> <br>
 
+        <label for="nouvelle_date">Date de commencement</label>
+        <input type="text" id="nouvelle_date" name="nouvelle_date"> <br>
+    </from>
 <?php
 include 'includes/footer.php';
 ?>

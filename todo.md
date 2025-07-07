@@ -40,6 +40,7 @@ code mere\
         formulaire Choix Dept et Date debut
         En haut le Dept et Date de debut actuel 
         message erreur si le Date de debut est inferieur a la date actuel
+        fontion qui prend id, nouvaaude Dept et date
 
     moteurRecherche.php
         **** seul 20 lignes en result ****

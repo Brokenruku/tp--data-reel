@@ -30,14 +30,14 @@ $longest_job = mysqli_fetch_assoc(mysqli_query($mysqli,
      LIMIT 1"));
 ?>
 
-<div class="card shadow-lg mb-4">
-    <div class="card-header bg-gradient-primary" style="color: purple;">
+<section class="card shadow-lg mb-4">
+    <article class="card-header bg-gradient-primary" style="color: purple;">
         <h2 class="card-title mb-0">
             <i class="fas fa-user-circle me-2"></i><?= htmlspecialchars($employee['first_name'].' '.$employee['last_name']) ?>
         </h2>
-    </div>
+    </article>
 
-    <div class="card-body">
+    <article class="card-body">
         <div class="row">
             <div class="col-6">
                 <p><strong><i class="fas fa-id-badge me-2 text-primary"></i>ID:</strong> <span class="badge bg-secondary"><?= $employee['emp_no'] ?></span></p>
@@ -57,11 +57,11 @@ $longest_job = mysqli_fetch_assoc(mysqli_query($mysqli,
                 <p><strong><i class="fas fa-calendar-plus me-2 text-primary"></i>Embauche:</strong> <?= $employee['hire_date'] ?></p>
             </div>
         </div>
-    </div>
-</div>
+    </article>
+</section>
 
-<div class="row">
-    <div class="col-6">
+<section class="row">
+    <article class="col-6">
         <div class="card shadow h-100">
             <div class="card-header bg-success text-white d-flex align-items-center">
                 <i class="fas fa-euro-sign me-2"></i>
@@ -86,9 +86,9 @@ $longest_job = mysqli_fetch_assoc(mysqli_query($mysqli,
                 </table>
             </div>
         </div>
-    </div>
+    </article>
 
-    <div class="col-6">
+    <article class="col-6">
         <div class="card shadow h-100">
             <div class="card-header bg-info text-white d-flex align-items-center">
                 <i class="fas fa-briefcase me-2"></i>
@@ -113,8 +113,8 @@ $longest_job = mysqli_fetch_assoc(mysqli_query($mysqli,
                 </table>
             </div>
         </div>
-    </div>
-</div>
+    </article>
+</section>
 
 <div class="mt-4 d-flex gap-2">
     <a href="employees.php?dept=<?= $dept_no ?>" class="btn btn-primary rounded-pill">
