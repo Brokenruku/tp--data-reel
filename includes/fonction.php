@@ -1,5 +1,4 @@
 <?php
-    define('APP_ROOT', true);
 
     function changerDeDepartement($dept_no_Vaovao, $nouvelle_date , $id_emp, $mysqli){
         mysqli_query($mysqli, "
