@@ -1,23 +1,32 @@
 <?php
 
-function changerDeDepartement($dept_no_Vaovao, $nouvelle_date, $id_emp, $mysqli) {
-    
-    if (empty($dept_no_Vaovao) || empty($nouvelle_date) || empty($id_emp)) {
-        return false;
-    }
+function changerDeDepartement($dept_no, $new_from_date, $new_to_date, $emp_no, $mysqli) {
 
-    $update_query = "UPDATE dept_emp 
-                    SET to_date = DATE_SUB('$nouvelle_date', INTERVAL 1 DAY)
-                    WHERE emp_no = '$id_emp' AND to_date > CURDATE()";
+    $emp_check = mysqli_query($mysqli, "SELECT birth_date FROM employees WHERE emp_no = '$emp_no'");
+    if (mysqli_num_rows($emp_check) === 0) return false;
     
-    if (!mysqli_query($mysqli, $update_query)) {
-        return false;
-    }
+    $emp_data = mysqli_fetch_assoc($emp_check);
+    $birth_date = $emp_data['birth_date'];
+    
+    if ($new_from_date < $birth_date) return false;
+    if ($new_to_date <= $new_from_date) return false;
+    
+    $update = "UPDATE dept_emp 
+              SET to_date = DATE_SUB('$new_from_date', INTERVAL 1 DAY)
+              WHERE emp_no = '$emp_no' AND to_date > CURDATE()";
+    
+    $insert = "INSERT INTO dept_emp (emp_no, dept_no, from_date, to_date)
+              VALUES ('$emp_no', '$dept_no', '$new_from_date', '$new_to_date')";
+    
+    return mysqli_query($mysqli, $update) && mysqli_query($mysqli, $insert);
+}
 
-    $insert_query = "INSERT INTO dept_emp (emp_no, dept_no, from_date, to_date)
-                    VALUES ('$id_emp', '$dept_no_Vaovao', '$nouvelle_date', '9999-01-01')";
-    
-    return mysqli_query($mysqli, $insert_query);
+function getCurrentDeptInfo($mysqli, $emp_no) {
+    $query = "SELECT de.dept_no, d.dept_name, de.from_date, de.to_date 
+              FROM dept_emp de
+              JOIN departments d ON de.dept_no = d.dept_no
+              WHERE de.emp_no = '$emp_no' AND de.to_date > CURDATE()";
+    return mysqli_fetch_assoc(mysqli_query($mysqli, $query));
 }
 
 function listeDepartement($mysqli) {
