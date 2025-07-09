@@ -2,25 +2,23 @@
 define('APP_ROOT', true);
 require_once 'includes/config.php';
 require_once 'includes/header.php';
+include 'includes/fonction.php'; 
 
 if (!isset($_GET['emp_no'])) {
     die("Paramètre 'emp_no' manquant !");
 }
 $id_emp = $_GET['emp_no'];
 
-$result = mysqli_query($mysqli, "SELECT dept_name FROM departments");
 $nomDesDept = [];
 
-while ($row = mysqli_fetch_assoc($result)) {
-    $nomDesDept[] = $row['dept_name'];
-}
+$nomDesDept = listeDepartement($mysqli);
 ?>
 
 <form action="ChangeDeptMethode.php?id_emp=<?= $id_emp ?>" method="post">
     <label for="nvDept">Votre nouveau département</label>
     <select name="nvDept" id="nvDept">
-        <?php foreach ($nomDesDept as $dept) { ?>
-            <option value="<?= $dept ?>"><?= $dept ?></option>
+        <?php for ($i = 0; $i < count($nomDesDept); $i++) { ?>
+            <option value="<?= ($nomDesDept[$i]) ?>"><?= ($nomDesDept[$i]) ?></option>
         <?php } ?>
     </select>
 
