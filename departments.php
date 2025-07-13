@@ -1,20 +1,26 @@
 <?php
-    define('APP_ROOT', true);
-    require_once 'includes/config.php';
-    require_once 'includes/header.php';
-
-    $query = "SELECT d.dept_no, d.dept_name, 
+define('APP_ROOT', true);
+require_once 'includes/config.php';
+require_once 'includes/header.php';
+require_once 'includes/fonction.php';
+$query = "SELECT d.dept_no, d.dept_name, 
             CONCAT(e.first_name, ' ', e.last_name) AS manager,
             COUNT(de.emp_no) AS nb_employes
-            FROM departments d
-            JOIN dept_manager dm ON d.dept_no = dm.dept_no
-            JOIN employees e ON dm.emp_no = e.emp_no
-            LEFT JOIN dept_emp de ON d.dept_no = de.dept_no AND de.to_date > CURDATE()
-            WHERE dm.to_date > CURDATE()
-            GROUP BY d.dept_no, d.dept_name, e.first_name, e.last_name";
+          FROM departments d
+          JOIN dept_manager dm ON d.dept_no = dm.dept_no
+          JOIN employees e ON dm.emp_no = e.emp_no
+          JOIN dept_emp de ON d.dept_no = de.dept_no AND de.to_date > CURDATE()
+          WHERE dm.to_date > CURDATE()
+          GROUP BY d.dept_no, d.dept_name, e.first_name, e.last_name
+          ORDER BY d.dept_no ASC";
 
-    $result = mysqli_query($mysqli, $query);
+
+$result = mysqli_query($mysqli, $query);
 ?>
+
+<form action="ajoutDepartement.php">
+    <input type="submit" value="modifier un departments" class="btn btn-warning btn-sm">
+</form>
 
 <div class="card shadow">
     <div class="card-header bg-gradient-primary text-black">
@@ -34,19 +40,28 @@
                 </tr>
             </thead>
             <tbody>
-                <?php while ($row = mysqli_fetch_assoc($result)){ ?>
-                <tr class="align-middle">
-                    <td><span class="badge bg-secondary"><?= ($row['dept_no']) ?></span></td>
-                    <td class="fw-semibold text-primary"><?= ($row['dept_name']) ?></td>
-                    <td><i class="fas fa-user me-1"></i><?= ($row['manager']) ?></td>
-                    <td><span class="badge bg-info"><?= $row['nb_employes'] ?></span></td>
-                    <td class="text-center">
-                        <a href="employees.php?dept=<?= $row['dept_no'] ?>"
-                           class="btn btn-outline-primary btn-sm rounded-pill">
-                            <i class="fas fa-users me-1"></i>Voir équipe
-                        </a>
-                    </td>
-                </tr>
+                <?php while ($row = mysqli_fetch_assoc($result)) { ?>
+                    <tr class="align-middle">
+                        <td><span class="badge bg-secondary"><?= ($row['dept_no']) ?></span></td>
+                        <td class="fw-semibold text-primary"><?= ($row['dept_name']) ?></td>
+                        <td><i class="fas fa-user me-1"></i><?= ($row['manager']) ?></td>
+                        <td><span class="badge bg-info"><?= $row['nb_employes'] ?></span></td>
+                        <td class="text-center">
+                            <a href="employees.php?dept=<?= $row['dept_no'] ?>"
+                                class="btn btn-outline-primary btn-sm rounded-pill">
+                                <i class="fas fa-users me-1"></i>Voir équipe
+                            </a>
+                        </td>
+                        <td>
+                            <form action="modulationDept.php" method="post">
+                                <input type="hidden" name="dept_no" value="<?= htmlspecialchars($row['dept_no']) ?>">
+                                <button type="submit" class="btn btn-warning btn-sm">
+                                    <i class="fas fa-edit me-1"></i>Modifier
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+
                 <?php } ?>
             </tbody>
         </table>
@@ -59,7 +74,7 @@
     </a>
 </div>
 
-<?php 
+<?php
 mysqli_free_result($result);
-include 'includes/footer.php'; 
+include 'includes/footer.php';
 ?>
