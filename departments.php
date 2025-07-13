@@ -4,16 +4,14 @@ require_once 'includes/config.php';
 require_once 'includes/header.php';
 require_once 'includes/fonction.php';
 $query = "SELECT d.dept_no, d.dept_name, 
-            CONCAT(e.first_name, ' ', e.last_name) AS manager,
-            COUNT(de.emp_no) AS nb_employes
+            IFNULL(CONCAT(e.first_name, ' ', e.last_name), 'Pas de manager') AS manager,
+            COUNT(DISTINCT de.emp_no) AS nb_employes
           FROM departments d
-          JOIN dept_manager dm ON d.dept_no = dm.dept_no
-          JOIN employees e ON dm.emp_no = e.emp_no
-          JOIN dept_emp de ON d.dept_no = de.dept_no AND de.to_date > CURDATE()
-          WHERE dm.to_date > CURDATE()
-          GROUP BY d.dept_no, d.dept_name, e.first_name, e.last_name
+          LEFT JOIN dept_manager dm ON d.dept_no = dm.dept_no AND dm.to_date > CURDATE()
+          LEFT JOIN employees e ON dm.emp_no = e.emp_no
+          LEFT JOIN dept_emp de ON d.dept_no = de.dept_no AND de.to_date > CURDATE()
+          GROUP BY d.dept_no, d.dept_name, manager
           ORDER BY d.dept_no ASC";
-
 
 $result = mysqli_query($mysqli, $query);
 ?>
