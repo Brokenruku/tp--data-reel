@@ -48,6 +48,24 @@ code mere\
         1 element de l sql en entrer de recherche soit 
             departement || nom emplye || age max / min
 
+    modificationPerso.php
+        role : pour modifier  un employé , avec les infos, le département, et une case à cocher pour dire s'il est un manager ou pas
+        update des JOIN des table en relation avec employee 
+
+    ajouterPerso.php
+        Perso : employee, manager
+        role ajouter un nouveau Perso
+        insert dans le table employee et aussi les tables en relation avec 
+
+    modulationDept.php
+        changer le nom avec le pouvoir de recuperation de l'id du departement 
+
+    ajoutDepartement.php
+        pour insert dans la table departments les info
+        recuperation du nom du departement par post venant du formulaire
+        fonction qui construit l id de style "d001" 
+            mettre d puis rajouter des 0 devant le nombre des departement maximal derriere 
+
 
         
 
