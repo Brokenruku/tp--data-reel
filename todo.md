@@ -49,11 +49,13 @@ code mere\
             departement || nom emplye || age max / min
 
     modificationPerso.php
+        mettre le lien vers ce page dans employees a voter des donnes
         role : pour modifier  un employé , avec les infos, le département, et une case à cocher pour dire s'il est un manager ou pas
         update des JOIN des table en relation avec employee 
 
     ajouterPerso.php
         Perso : employee, manager
+        mettre le lien qui redirige cette page dans la page departement
         role ajouter un nouveau Perso
         insert dans le table employee et aussi les tables en relation avec 
 
